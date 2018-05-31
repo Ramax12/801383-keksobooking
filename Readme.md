@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Максим Кошелев](https://up.htmlacademy.ru/javascript/14/user/801383).
-* Наставник: [Артемий Бойков].
+* Наставник: [Артемий Бойков](https://htmlacademy.ru/profile/id607755).
 
 ---
 
