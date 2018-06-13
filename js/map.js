@@ -40,7 +40,9 @@ var renderMark = function (mark) {
 };
 
 var randomArray = function (array, count) {
-  array.sort(function () { return Math.random() - 0.5 });
+  array.sort(function () {
+    return Math.random() - 0.5;
+  });
   var items = [];
   for (var i = 0; i < count; i++) {
     var item = array[i];
@@ -80,15 +82,15 @@ var marks = [];
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < 8; i++) {
-  var mark = createMark(i);
-  marks.push(mark);
-  fragment.appendChild(renderMark(mark));
+  var changeMark = createMark(i);
+  marks.push(changeMark);
+  fragment.appendChild(renderMark(changeMark));
 }
 similarMarkElement.appendChild(fragment);
 
 var renderFeatures = function (features, container) {
   var content = '';
-  for (var i = 0; i < features.length; i++) {
+  for (i = 0; i < features.length; i++) {
     content += '<li class="popup__feature popup__feature--' + features[i] + '"></li>';
   }
   container.innerHTML = content;
@@ -97,7 +99,7 @@ var renderFeatures = function (features, container) {
 var photoElementTemplate = document.querySelector('template').content.querySelector('.popup__photo');
 var renderPhotos = function (photos, container) {
   container.innerHTML = '';
-  for (var i = 0; i < photos.length; i++) {
+  for (i = 0; i < photos.length; i++) {
     var photoElement = photoElementTemplate.cloneNode();
     photoElement.src = photos[i];
     container.appendChild(photoElement);
