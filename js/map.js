@@ -8,7 +8,6 @@ var similarMarkTemplate = document.querySelector('template')
     .content
     .querySelector('.map__pin');
 
-var similarCardElement = map.querySelector('.map__cards');
 var similarCardTemplate = document.querySelector('template')
     .content
     .querySelector('.map__card');
@@ -16,11 +15,6 @@ var similarCardTemplate = document.querySelector('template')
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
-// var avatar = function (numberImg) {
-
-//   return 'img/avatars/user' + '0' + numberImg + '.png';
-// };
 
 var TITLES = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var CHECKINS = ['12:00', '13:00', '14:00'];
@@ -33,14 +27,6 @@ var TYPES = {
   house: 'Дом',
   bungalo: 'Бунгало'
 };
-// var offer = {
-//   address: [600, 350],
-//   price: getRandomInt(1000, 1000000),
-//   rooms: getRandomInt(1, 5),
-//   guests: getRandomInt(1, 100),
-
-//    description: '',
-//   };
 
 var renderMark = function (mark) {
   var markElement = similarMarkTemplate.cloneNode(true);
@@ -53,8 +39,8 @@ var renderMark = function (mark) {
   return markElement;
 };
 
-var randomArray = function(array, count) {
-  array.sort(function() { return Math.random() - 0.5 });
+var randomArray = function (array, count) {
+  array.sort(function () { return Math.random() - 0.5 });
   var items = [];
   for (var i = 0; i < count; i++) {
     var item = array[i];
@@ -69,10 +55,10 @@ var createMark = function (i) {
     offer: {
       title: TITLES[i],
       type: types[getRandomInt(0, types.length)],
-      features: randomArray(FEATURES, getRandomInt(0, FEATURES.length)),
+      features: randomArray(FEATURES, getRandomInt(1, FEATURES.length)),
       checkin: CHECKINS[getRandomInt(0, CHECKINS.length)],
       checkout: CHECKOUTS[getRandomInt(0, CHECKOUTS.length)],
-      photos: randomArray(PHOTOS, getRandomInt(0, PHOTOS.length)),
+      photos: randomArray(PHOTOS, getRandomInt(1, PHOTOS.length)),
       price: getRandomInt(1000, 1000000),
       rooms: getRandomInt(1, 5),
       guests: getRandomInt(1, 100),
@@ -86,7 +72,7 @@ var createMark = function (i) {
       y: getRandomInt(130, 630)
     }
   };
-  mark.address = mark.location.x + ', ' + mark.location.y;
+  mark.offer.address = mark.location.x + ', ' + mark.location.y;
   return mark;
 };
 
@@ -100,14 +86,24 @@ for (var i = 0; i < 8; i++) {
 }
 similarMarkElement.appendChild(fragment);
 
+var renderFeatures = function (features, container) {
+  var content = '';
+  for (var i = 0; i < features.length; i++) {
+    content += '<li class="popup__feature popup__feature--' + features[i] + '"></li>';
+  }
+  container.innerHTML = content;
+};
+
 var photoElementTemplate = document.querySelector('template').content.querySelector('.popup__photo');
 var renderPhotos = function (photos, container) {
+  container.innerHTML = '';
   for (var i = 0; i < photos.length; i++) {
     var photoElement = photoElementTemplate.cloneNode();
     photoElement.src = photos[i];
     container.appendChild(photoElement);
   }
-}
+};
+
 var renderCard = function (mark) {
   var cardElement = similarCardTemplate.cloneNode(true);
 
@@ -116,8 +112,8 @@ var renderCard = function (mark) {
   cardElement.querySelector('.popup__text--price').textContent = mark.offer.price + '₽/ночь';
   cardElement.querySelector('.popup__type').textContent = TYPES[mark.offer.type];
   cardElement.querySelector('.popup__text--capacity').textContent = mark.offer.rooms + ' комнаты для ' + mark.offer.guests + ' гостей';
-  cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + mark.offer.checkin[1] + ', выезд до ' + mark.offer.checkout[1];
-  cardElement.querySelector('.popup__features').textContent = mark.offer.features;
+  cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + mark.offer.checkin + ', выезд до ' + mark.offer.checkout;
+  renderFeatures(mark.offer.features, cardElement.querySelector('.popup__features'));
   cardElement.querySelector('.popup__description').textContent = mark.offer.description;
   renderPhotos(mark.offer.photos, cardElement.querySelector('.popup__photos'));
   cardElement.querySelector('.popup__avatar').src = mark.author.avatar;
