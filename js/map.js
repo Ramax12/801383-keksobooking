@@ -98,12 +98,6 @@ var renderPhotos = function (photos, container) {
 };
 
 // Закрытие/открытие карточки
-var onPopupCloseEnterPress = function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    closeCard();
-  }
-};
-
 var onPopupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closeCard();
@@ -113,16 +107,16 @@ var onPopupEscPress = function (evt) {
 var marks = [];
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < 8; i++) {
-  var mark = createMark(i);
-  marks.push(mark);
-  var addPin = fragment.appendChild(renderMark(mark));
+  var changeMark = createMark(i);
+  marks.push(changeMark);
+  var addPin = fragment.appendChild(renderMark(changeMark));
 
   addPin.addEventListener('click', function () {
     var mapCard = map.querySelector('.map__card');
     if (mapCard) {
       closeCard();
     }
-    mapFiltersContainer.parentNode.insertBefore(renderCard(mark), mapFiltersContainer);
+    mapFiltersContainer.parentNode.insertBefore(renderCard(changeMark), mapFiltersContainer);
   });
 }
 
@@ -130,7 +124,7 @@ var closeCard = function () {
   var popup = map.querySelector('.map__card');
   map.removeChild(popup);
   document.removeEventListener('keydown', onPopupEscPress);
-}
+};
 
 var renderCard = function (mark) {
   var cardElement = similarCardTemplate.cloneNode(true);
@@ -177,10 +171,10 @@ var calculateAddress = function () {
     mapPinY += MAP_PIN_HEIGHT / 2 + TAIL_HEIGHT;
   }
   return mapPinX + ', ' + mapPinY;
-}
+};
 
 // Неактивное состояние
-for (var i = 0; i < inactiveFields.length; i++) {
+for (i = 0; i < inactiveFields.length; i++) {
   inactiveFields[i].setAttribute('disabled', 'disabled');
 }
 mapPinAddress.placeholder = calculateAddress();
@@ -191,7 +185,7 @@ var isMapActive = function () {
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
   mapPinAddress.placeholder = calculateAddress();
-  for (var i = 0; i < inactiveFields.length; i++) {
+  for (i = 0; i < inactiveFields.length; i++) {
     inactiveFields[i].removeAttribute('disabled', 'disabled');
   }
 };
