@@ -206,7 +206,7 @@ mapPin.addEventListener('click', function isMapActive() {
   for (i = 0; i < inactiveFields.length; i++) {
     inactiveFields[i].removeAttribute('disabled', 'disabled');
   }
-  mapPin.removeEventListener('click', isMapActive)
+  mapPin.removeEventListener('click', isMapActive);
 });
 
 // Ограничения на поля ввода
@@ -223,7 +223,7 @@ var changeType = function () {
 
   price.setAttribute('min', minValuePrice);
   price.setAttribute('placeholder', minValuePrice);
-}
+};
 type.addEventListener('change', changeType);
 
 pinMain.addEventListener('mousedown', function (evt) {
@@ -263,14 +263,14 @@ pinMain.addEventListener('mousedown', function (evt) {
 });
 
 timeIn.addEventListener('change', function () {
-   timeOut.value = timeIn.value;
+  timeOut.value = timeIn.value;
 });
 
 timeOut.addEventListener('change', function () {
   timeIn.value = timeOut.value;
 });
 
-var validateGuests = function() {
+var validateGuests = function () {
   var capacityArray = ROOM_NUMBER_AND_CAPACITY[roomNumber.value];
 
   roomNumber.setCustomValidity('');
@@ -280,4 +280,4 @@ var validateGuests = function() {
   }
 };
 roomNumber.addEventListener('change', validateGuests);
-capacity.addEventListener('change', validateGuests)
+capacity.addEventListener('change', validateGuests);
