@@ -200,14 +200,14 @@ var calculateAddress = function () {
 for (var i = 0; i < inactiveFields.length; i++) {
   inactiveFields[i].setAttribute('disabled', 'disabled');
 }
-mapPinAddress.placeholder = calculateAddress();
+mapPinAddress.value = calculateAddress();
 
 // Активное состояние
 mapPin.addEventListener('click', function isMapActive() {
   renderMarksAll();
   map.classList.remove('map--faded');
   adForm.classList.remove('ad-form--disabled');
-  mapPinAddress.placeholder = calculateAddress();
+  mapPinAddress.value = calculateAddress();
   for (i = 0; i < inactiveFields.length; i++) {
     inactiveFields[i].removeAttribute('disabled', 'disabled');
   }
@@ -292,7 +292,7 @@ pinMain.addEventListener('mousedown', function (evt) {
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
 
-    mapPinAddress.placeholder = calculateAddress();
+    mapPinAddress.value = calculateAddress();
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
