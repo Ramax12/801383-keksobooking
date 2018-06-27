@@ -48,6 +48,7 @@ var similarCardTemplate = document.querySelector('template')
     .querySelector('.map__card');
 
 var mapFiltersContainer = document.querySelector('.map__filters-container');
+var pinMain = document.querySelector('.map__pin--main');
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -118,7 +119,7 @@ var renderMarksAll = function () {
     marks.push(mark);
     fragment.appendChild(renderMark(mark));
   }
-  return similarMarkElement.appendChild(fragment);
+  return similarMarkElement.insertBefore(fragment, pinMain);
 };
 
 var renderFeatures = function (features, container) {
@@ -217,7 +218,6 @@ mapPin.addEventListener('click', function isMapActive() {
 // Ограничения на поля ввода
 var price = document.querySelector('#price');
 var type = document.querySelector('#type');
-var pinMain = document.querySelector('.map__pin--main');
 var timeIn = document.querySelector('#timein');
 var timeOut = document.querySelector('#timeout');
 var roomNumber = document.querySelector('#room_number');
