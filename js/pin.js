@@ -37,7 +37,7 @@
     return markElement;
   };
 
-  window.renderMarksAll = function () {
+  var renderMarksAll = function () {
     var marks = [];
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < 8; i++) {
@@ -66,7 +66,7 @@
 
   // Активное состояние
   pinMain.addEventListener('click', function isMapActive() {
-    window.renderMarksAll();
+    renderMarksAll();
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     mapPinAddress.value = calculateAddress();

@@ -1,11 +1,11 @@
 'use strict';
 
 (function () {
-  window.getRandomInt = function (min, max) {
+  var getRandomInt = function (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
-  window.randomArray = function (array, count) {
+  var randomArray = function (array, count) {
     array.sort(function () {
       return Math.random() - 0.5;
     });
@@ -15,5 +15,10 @@
       items.push(item);
     }
     return items;
+  };
+
+  window.randomValue = {
+    getRandomInt: getRandomInt,
+    randomArray: randomArray
   };
 })();
