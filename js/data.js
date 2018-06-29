@@ -18,22 +18,22 @@
     var mark = {
       offer: {
         title: TITLES[i],
-        type: types[window.randomValue.getRandomInt(0, types.length)],
-        features: window.randomValue.randomArray(FEATURES, window.randomValue.getRandomInt(1, FEATURES.length)),
-        checkin: CHECKINS[window.randomValue.getRandomInt(0, CHECKINS.length)],
-        checkout: CHECKOUTS[window.randomValue.getRandomInt(0, CHECKOUTS.length)],
-        photos: window.randomValue.randomArray(PHOTOS, window.randomValue.getRandomInt(1, PHOTOS.length)),
-        price: window.randomValue.getRandomInt(1000, 1000000),
-        rooms: window.randomValue.getRandomInt(1, 5),
-        guests: window.randomValue.getRandomInt(1, 3),
+        type: types[window.utils.randomInt(0, types.length)],
+        features: window.utils.randomArray(FEATURES, window.utils.randomInt(1, FEATURES.length)),
+        checkin: CHECKINS[window.utils.randomInt(0, CHECKINS.length)],
+        checkout: CHECKOUTS[window.utils.randomInt(0, CHECKOUTS.length)],
+        photos: window.utils.randomArray(PHOTOS, window.utils.randomInt(1, PHOTOS.length)),
+        price: window.utils.randomInt(1000, 1000000),
+        rooms: window.utils.randomInt(1, 5),
+        guests: window.utils.randomInt(1, 3),
         description: ''
       },
       author: {
         avatar: 'img/avatars/user0' + (i + 1) + '.png'
       },
       location: {
-        x: window.randomValue.getRandomInt(300, 900),
-        y: window.randomValue.getRandomInt(130, 630)
+        x: window.utils.randomInt(300, 900),
+        y: window.utils.randomInt(130, 630)
       }
     };
     mark.offer.address = mark.location.x + ', ' + mark.location.y;

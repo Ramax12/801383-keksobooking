@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var getRandomInt = function (min, max) {
+  var randomInt = function (min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
@@ -17,8 +17,8 @@
     return items;
   };
 
-  window.randomValue = {
-    getRandomInt: getRandomInt,
+  window.utils = {
+    randomInt: randomInt,
     randomArray: randomArray
   };
 })();
