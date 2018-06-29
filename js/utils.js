@@ -11,7 +11,7 @@
       var item = array[i];
       items.push(item);
     }
-    array.sort(function () {
+    items.sort(function () {
       return Math.random() - 0.5;
     });
     return items;
