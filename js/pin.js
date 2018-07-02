@@ -37,13 +37,10 @@
     return markElement;
   };
 
-  var renderMarksAll = function () {
-    var marks = [];
+  var renderMarksAll = function (marks) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < 8; i++) {
-      var mark = window.createMark(i);
-      marks.push(mark);
-      fragment.appendChild(renderMark(mark));
+      fragment.appendChild(renderMark(marks[i]));
     }
     return similarMarkElement.insertBefore(fragment, pinMain);
   };
@@ -66,7 +63,7 @@
 
   // Активное состояние
   pinMain.addEventListener('click', function isMapActive() {
-    renderMarksAll();
+    window.backend.load(renderMarksAll, window.onError);
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
     mapPinAddress.value = calculateAddress();

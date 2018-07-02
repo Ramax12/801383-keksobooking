@@ -21,6 +21,8 @@
   var timeOut = document.querySelector('#timeout');
   var roomNumber = document.querySelector('#room_number');
   var capacity = document.querySelector('#capacity');
+  var adForm = document.querySelector('.ad-form');
+  var error = document.querySelector('.error');
 
   var changeType = function () {
     var minValuePrice = MIN_PRICE[type.value];
@@ -49,4 +51,23 @@
   };
   roomNumber.addEventListener('change', validateGuests);
   capacity.addEventListener('change', validateGuests);
+
+  error.addEventListener('click', function () {
+    error.style.display = 'none';
+  });
+
+  window.onError = function (textError) {
+    error.style.display = 'block';
+    error.textContent = textError;
+    document.body.insertAdjacentElement('afterbegin', error);
+  };
+
+  var resetForm = function () {
+    adForm.reset();
+  };
+
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(adForm), resetForm, window.onError);
+  });
 })();
