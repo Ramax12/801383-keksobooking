@@ -46,7 +46,7 @@
   };
 
   // Определение координат метки
-  var calculateAddress = function () {
+  window.calculateAddress = function () {
     var pinMainX = parseInt(pinMain.style.left, 10) + MAP_PIN_WIDTH / 2;
     var pinMainY = parseInt(pinMain.style.top, 10) + MAP_PIN_HEIGHT / 2;
     if (!(map.classList.contains('map--faded'))) {
@@ -59,14 +59,14 @@
   for (var i = 0; i < inactiveFields.length; i++) {
     inactiveFields[i].setAttribute('disabled', 'disabled');
   }
-  mapPinAddress.value = calculateAddress();
+  mapPinAddress.value = window.calculateAddress();
 
   // Активное состояние
   pinMain.addEventListener('click', function isMapActive() {
     window.backend.load(renderMarksAll, window.onError);
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
-    mapPinAddress.value = calculateAddress();
+    mapPinAddress.value = window.calculateAddress();
     for (i = 0; i < inactiveFields.length; i++) {
       inactiveFields[i].removeAttribute('disabled', 'disabled');
     }
@@ -113,7 +113,7 @@
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      mapPinAddress.value = calculateAddress();
+      mapPinAddress.value = window.calculateAddress();
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);

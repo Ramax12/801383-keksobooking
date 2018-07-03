@@ -23,6 +23,8 @@
   var capacity = document.querySelector('#capacity');
   var adForm = document.querySelector('.ad-form');
   var error = document.querySelector('.error');
+  var map = document.querySelector('.map');
+  var mapPinAddress = document.querySelector('#address');
 
   var changeType = function () {
     var minValuePrice = MIN_PRICE[type.value];
@@ -64,6 +66,9 @@
 
   var resetForm = function () {
     adForm.reset();
+    map.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    mapPinAddress.value = window.calculateAddress();
   };
 
   adForm.addEventListener('submit', function (evt) {
