@@ -28,11 +28,11 @@
 
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
-      closeCard();
+      window.closeCard();
     }
   };
 
-  var closeCard = function () {
+  window.closeCard = function () {
     var popup = map.querySelector('.map__card');
     map.removeChild(popup);
     document.removeEventListener('keydown', onPopupEscPress);
@@ -56,17 +56,17 @@
     var popupClose = cardElement.querySelector('.popup__close');
     popupClose.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
-        closeCard();
+        window.closeCard();
       }
     });
 
     popupClose.addEventListener('click', function () {
-      closeCard();
+      window.closeCard();
     });
 
     var mapCard = map.querySelector('.map__card');
     if (mapCard) {
-      closeCard();
+      window.closeCard();
     }
     return cardElement;
 

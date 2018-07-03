@@ -46,7 +46,7 @@
   };
 
   // Определение координат метки
-  window.calculateAddress = function () {
+  var calculateAddress = function () {
     var pinMainX = parseInt(pinMain.style.left, 10) + MAP_PIN_WIDTH / 2;
     var pinMainY = parseInt(pinMain.style.top, 10) + MAP_PIN_HEIGHT / 2;
     if (!(map.classList.contains('map--faded'))) {
@@ -56,18 +56,22 @@
   };
 
   // Неактивное состояние
-  for (var i = 0; i < inactiveFields.length; i++) {
-    inactiveFields[i].setAttribute('disabled', 'disabled');
-  }
-  mapPinAddress.value = window.calculateAddress();
+  window.disablePage = function () {
+    for (var i = 0; i < inactiveFields.length; i++) {
+      inactiveFields[i].setAttribute('disabled', 'disabled');
+    }
+    mapPinAddress.value = calculateAddress();
+  };
+
+  window.disablePage();
 
   // Активное состояние
   pinMain.addEventListener('click', function isMapActive() {
     window.backend.load(renderMarksAll, window.onError);
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
-    mapPinAddress.value = window.calculateAddress();
-    for (i = 0; i < inactiveFields.length; i++) {
+    mapPinAddress.value = calculateAddress();
+    for (var i = 0; i < inactiveFields.length; i++) {
       inactiveFields[i].removeAttribute('disabled', 'disabled');
     }
     pinMain.removeEventListener('click', isMapActive);
@@ -113,7 +117,7 @@
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      mapPinAddress.value = window.calculateAddress();
+      mapPinAddress.value = calculateAddress();
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);

@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var DEFAULT_MAP_PIN_X = 570;
+  var DEFAULT_MAP_PIN_Y = 375;
   var MIN_PRICE = {
     bungalo: 0,
     flat: 1000,
@@ -24,7 +26,7 @@
   var adForm = document.querySelector('.ad-form');
   var error = document.querySelector('.error');
   var map = document.querySelector('.map');
-  var mapPinAddress = document.querySelector('#address');
+  var pinMain = document.querySelector('.map__pin--main');
 
   var changeType = function () {
     var minValuePrice = MIN_PRICE[type.value];
@@ -65,10 +67,21 @@
   };
 
   var resetForm = function () {
+    var mapPins = map.querySelectorAll('.map__pin:not(:last-of-type)');
+    var mapCard = document.querySelector('.map__card');
+
     adForm.reset();
     map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
-    mapPinAddress.value = window.calculateAddress();
+    pinMain.style.left = DEFAULT_MAP_PIN_X + 'px';
+    pinMain.style.top = DEFAULT_MAP_PIN_Y + 'px';
+    window.disablePage();
+    if (mapCard) {
+      window.closeCard();
+    }
+    for (var i = 0; i < mapPins.length; i++) {
+      mapPins[i].parentNode.removeChild(mapPins[i]);
+    }
   };
 
   adForm.addEventListener('submit', function (evt) {
