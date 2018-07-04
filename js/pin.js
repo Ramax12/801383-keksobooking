@@ -62,20 +62,22 @@
     }
     mapPinAddress.value = calculateAddress();
   };
-
   window.disablePage();
 
   // Активное состояние
-  pinMain.addEventListener('click', function isMapActive() {
-    window.backend.load(renderMarksAll, window.onError);
-    map.classList.remove('map--faded');
-    adForm.classList.remove('ad-form--disabled');
-    mapPinAddress.value = calculateAddress();
-    for (var i = 0; i < inactiveFields.length; i++) {
-      inactiveFields[i].removeAttribute('disabled', 'disabled');
-    }
-    pinMain.removeEventListener('click', isMapActive);
-  });
+  window.enablePage = function () {
+    pinMain.addEventListener('click', function isMapActive() {
+      window.backend.load(renderMarksAll, window.onError);
+      map.classList.remove('map--faded');
+      adForm.classList.remove('ad-form--disabled');
+      mapPinAddress.value = calculateAddress();
+      for (var i = 0; i < inactiveFields.length; i++) {
+        inactiveFields[i].removeAttribute('disabled', 'disabled');
+      }
+      pinMain.removeEventListener('click', isMapActive);
+    });
+  };
+  window.enablePage();
 
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();

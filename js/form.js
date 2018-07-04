@@ -82,6 +82,7 @@
     for (var i = 0; i < mapPins.length; i++) {
       mapPins[i].parentNode.removeChild(mapPins[i]);
     }
+    window.enablePage();
   };
 
   adForm.addEventListener('submit', function (evt) {
