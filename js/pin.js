@@ -37,13 +37,10 @@
     return markElement;
   };
 
-  var renderMarksAll = function () {
-    var marks = [];
+  var renderMarksAll = function (marks) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < 8; i++) {
-      var mark = window.createMark(i);
-      marks.push(mark);
-      fragment.appendChild(renderMark(mark));
+      fragment.appendChild(renderMark(marks[i]));
     }
     return similarMarkElement.insertBefore(fragment, pinMain);
   };
@@ -59,22 +56,28 @@
   };
 
   // Неактивное состояние
-  for (var i = 0; i < inactiveFields.length; i++) {
-    inactiveFields[i].setAttribute('disabled', 'disabled');
-  }
-  mapPinAddress.value = calculateAddress();
+  window.disablePage = function () {
+    for (var i = 0; i < inactiveFields.length; i++) {
+      inactiveFields[i].setAttribute('disabled', 'disabled');
+    }
+    mapPinAddress.value = calculateAddress();
+  };
+  window.disablePage();
 
   // Активное состояние
-  pinMain.addEventListener('click', function isMapActive() {
-    renderMarksAll();
-    map.classList.remove('map--faded');
-    adForm.classList.remove('ad-form--disabled');
-    mapPinAddress.value = calculateAddress();
-    for (i = 0; i < inactiveFields.length; i++) {
-      inactiveFields[i].removeAttribute('disabled', 'disabled');
-    }
-    pinMain.removeEventListener('click', isMapActive);
-  });
+  window.enablePage = function () {
+    pinMain.addEventListener('click', function isMapActive() {
+      window.backend.load(renderMarksAll, window.onError);
+      map.classList.remove('map--faded');
+      adForm.classList.remove('ad-form--disabled');
+      mapPinAddress.value = calculateAddress();
+      for (var i = 0; i < inactiveFields.length; i++) {
+        inactiveFields[i].removeAttribute('disabled', 'disabled');
+      }
+      pinMain.removeEventListener('click', isMapActive);
+    });
+  };
+  window.enablePage();
 
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();

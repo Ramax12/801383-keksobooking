@@ -28,11 +28,11 @@
 
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
-      closeCard();
+      window.closeCard();
     }
   };
 
-  var closeCard = function () {
+  window.closeCard = function () {
     var popup = map.querySelector('.map__card');
     map.removeChild(popup);
     document.removeEventListener('keydown', onPopupEscPress);
@@ -44,7 +44,7 @@
     cardElement.querySelector('.popup__title').textContent = mark.offer.title;
     cardElement.querySelector('.popup__text--address').textContent = mark.offer.address;
     cardElement.querySelector('.popup__text--price').textContent = mark.offer.price + '₽/ночь';
-    cardElement.querySelector('.popup__type').textContent = window.TYPES[mark.offer.type];
+    cardElement.querySelector('.popup__type').textContent = mark.offer.type;
     cardElement.querySelector('.popup__text--capacity').textContent = mark.offer.rooms + ' комнаты для ' + mark.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + mark.offer.checkin + ', выезд до ' + mark.offer.checkout;
     renderFeatures(mark.offer.features, cardElement.querySelector('.popup__features'));
@@ -56,17 +56,17 @@
     var popupClose = cardElement.querySelector('.popup__close');
     popupClose.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
-        closeCard();
+        window.closeCard();
       }
     });
 
     popupClose.addEventListener('click', function () {
-      closeCard();
+      window.closeCard();
     });
 
     var mapCard = map.querySelector('.map__card');
     if (mapCard) {
-      closeCard();
+      window.closeCard();
     }
     return cardElement;
 
