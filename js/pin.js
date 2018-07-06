@@ -9,6 +9,7 @@
   var MAP_PIN_WIDTH = 64;
   var MAP_PIN_HEIGHT = 64;
   var TAIL_HEIGHT = 22;
+  var LIMIT_MARKS = 5;
 
   var map = document.querySelector('.map');
   var similarMarkElement = map.querySelector('.map__pins');
@@ -31,16 +32,20 @@
     markElement.querySelector('.map__pin img').alt = mark.offer.title;
     markElement.addEventListener('click', function () {
 
-      mapFiltersContainer.parentNode.insertBefore(window.renderCard(mark), mapFiltersContainer);
+      mapFiltersContainer.parentNode.insertBefore(window.card.renderCard(mark), mapFiltersContainer);
     });
 
     return markElement;
   };
 
   var renderMarksAll = function (marks) {
+    var mapPins = map.querySelectorAll('.map__pin:not(:last-of-type)');
+    for (var i = 0; i < mapPins.length; i++) {
+      mapPins[i].remove();
+    }
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < 8; i++) {
-      fragment.appendChild(renderMark(marks[i]));
+    for (var j = 0; j < (marks.length > 5 ? LIMIT_MARKS : marks.length); j++) {
+      fragment.appendChild(renderMark(marks[j]));
     }
     return similarMarkElement.insertBefore(fragment, pinMain);
   };
@@ -56,18 +61,21 @@
   };
 
   // Неактивное состояние
-  window.disablePage = function () {
+  var disablePage = function () {
     for (var i = 0; i < inactiveFields.length; i++) {
       inactiveFields[i].setAttribute('disabled', 'disabled');
     }
     mapPinAddress.value = calculateAddress();
   };
-  window.disablePage();
+  disablePage();
 
   // Активное состояние
-  window.enablePage = function () {
+  var enablePage = function () {
     pinMain.addEventListener('click', function isMapActive() {
-      window.backend.load(renderMarksAll, window.onError);
+      window.backend.load(function (marks) {
+        window.marks = marks;
+        renderMarksAll(marks);
+      }, window.form.onError);
       map.classList.remove('map--faded');
       adForm.classList.remove('ad-form--disabled');
       mapPinAddress.value = calculateAddress();
@@ -77,7 +85,7 @@
       pinMain.removeEventListener('click', isMapActive);
     });
   };
-  window.enablePage();
+  enablePage();
 
   pinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -128,4 +136,10 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
+  window.pin = {
+    disablePage: disablePage,
+    enablePage: enablePage,
+    renderMarksAll: renderMarksAll
+  };
 })();

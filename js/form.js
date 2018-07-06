@@ -9,7 +9,6 @@
     house: 5000,
     palace: 10000
   };
-
   var ROOM_NUMBER_AND_CAPACITY = {
     '1': ['1'],
     '2': ['1', '2'],
@@ -60,7 +59,7 @@
     error.style.display = 'none';
   });
 
-  window.onError = function (textError) {
+  var onError = function (textError) {
     error.style.display = 'block';
     error.textContent = textError;
     document.body.insertAdjacentElement('afterbegin', error);
@@ -75,18 +74,22 @@
     adForm.classList.add('ad-form--disabled');
     pinMain.style.left = DEFAULT_MAP_PIN_X + 'px';
     pinMain.style.top = DEFAULT_MAP_PIN_Y + 'px';
-    window.disablePage();
+    window.pin.disablePage();
     if (mapCard) {
-      window.closeCard();
+      window.card.closeCard();
     }
     for (var i = 0; i < mapPins.length; i++) {
       mapPins[i].parentNode.removeChild(mapPins[i]);
     }
-    window.enablePage();
+    window.pin.enablePage();
   };
 
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(adForm), resetForm, window.onError);
+    window.backend.save(new FormData(adForm), resetForm, onError);
   });
+
+  window.form = {
+    onError: onError
+  };
 })();
