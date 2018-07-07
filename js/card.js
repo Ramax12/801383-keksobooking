@@ -1,9 +1,8 @@
 'use strict';
 
 (function () {
-  var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
-  var TYPES = {
+  var Types = {
     palace: 'Дворец',
     flat: 'Квартира',
     house: 'Дом',
@@ -45,13 +44,20 @@
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
+  var existenceCard = function () {
+    var mapCard = map.querySelector('.map__card');
+    if (mapCard) {
+      closeCard();
+    }
+  };
+
   var renderCard = function (mark) {
     var cardElement = similarCardTemplate.cloneNode(true);
 
     cardElement.querySelector('.popup__title').textContent = mark.offer.title;
     cardElement.querySelector('.popup__text--address').textContent = mark.offer.address;
     cardElement.querySelector('.popup__text--price').textContent = mark.offer.price + '₽/ночь';
-    cardElement.querySelector('.popup__type').textContent = TYPES[mark.offer.type];
+    cardElement.querySelector('.popup__type').textContent = Types[mark.offer.type];
     cardElement.querySelector('.popup__text--capacity').textContent = mark.offer.rooms + ' комнаты для ' + mark.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + mark.offer.checkin + ', выезд до ' + mark.offer.checkout;
     renderFeatures(mark.offer.features, cardElement.querySelector('.popup__features'));
@@ -61,25 +67,16 @@
 
     document.addEventListener('keydown', onPopupEscPress);
     var popupClose = cardElement.querySelector('.popup__close');
-    popupClose.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        closeCard();
-      }
-    });
 
     popupClose.addEventListener('click', function () {
       closeCard();
     });
+    existenceCard();
 
-    var mapCard = map.querySelector('.map__card');
-    if (mapCard) {
-      closeCard();
-    }
     return cardElement;
-
   };
   window.card = {
     renderCard: renderCard,
-    closeCard: closeCard
+    existenceCard: existenceCard
   };
 })();
