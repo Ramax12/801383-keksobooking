@@ -18,6 +18,7 @@
   var mapFiltersContainer = document.querySelector('.map__filters-container');
   var pinMain = document.querySelector('.map__pin--main');
   var mapPinAddress = document.querySelector('#address');
+  var markActive;
 
   var renderMark = function (mark) {
     var markElement = similarMarkTemplate.cloneNode(true);
@@ -27,8 +28,8 @@
     markElement.querySelector('.map__pin img').src = mark.author.avatar;
     markElement.querySelector('.map__pin img').alt = mark.offer.title;
     markElement.addEventListener('click', function () {
-      markElement.classList.add('map__pin--active');
       mapFiltersContainer.parentNode.insertBefore(window.card.renderCard(mark), mapFiltersContainer);
+      activeMark(markElement);
     });
 
     return markElement;
@@ -44,6 +45,18 @@
       fragment.appendChild(renderMark(marks[j]));
     }
     return similarMarkElement.insertBefore(fragment, pinMain);
+  };
+
+  var activeMark = function (element) {
+    activeMarkHide();
+    markActive = element;
+    markActive.classList.add('map__pin--active');
+  };
+
+  var activeMarkHide = function () {
+    if (markActive) {
+      markActive.classList.remove('map__pin--active');
+    }
   };
 
   var facetBlock = function () {
