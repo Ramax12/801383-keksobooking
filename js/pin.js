@@ -41,9 +41,9 @@
       mapMarks[i].remove();
     }
     var fragment = document.createDocumentFragment();
-    for (var j = 0; j < (marks.length > 5 ? LIMIT_MARKS : marks.length); j++) {
-      fragment.appendChild(renderMark(marks[j]));
-    }
+    marks.slice(0, LIMIT_MARKS).forEach(function (mark) {
+      fragment.appendChild(renderMark(mark));
+    });
     return similarMarkElement.insertBefore(fragment, pinMain);
   };
 
@@ -60,10 +60,10 @@
   };
 
   var facetBlock = function () {
-    if (pinMain.offsetTop > MAX_PIN_BOTTOM - window.map.MAP_PIN_HEIGHT) {
-      pinMain.style.top = (MAX_PIN_BOTTOM - window.map.MAP_PIN_HEIGHT) + 'px';
-    } else if (pinMain.offsetTop < MIN_PIN_TOP - window.map.MAP_PIN_HEIGHT) {
-      pinMain.style.top = (MIN_PIN_TOP - window.map.MAP_PIN_HEIGHT) + 'px';
+    if (pinMain.offsetTop > MAX_PIN_BOTTOM) {
+      pinMain.style.top = MAX_PIN_BOTTOM + 'px';
+    } else if (pinMain.offsetTop < MIN_PIN_TOP) {
+      pinMain.style.top = MIN_PIN_TOP + 'px';
     }
 
     if (pinMain.offsetLeft > MAX_PIN_RIGHT) {
@@ -83,7 +83,6 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      facetBlock();
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -97,6 +96,8 @@
 
       pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
       pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
+
+      facetBlock();
     };
 
     var onMouseUp = function (upEvt) {

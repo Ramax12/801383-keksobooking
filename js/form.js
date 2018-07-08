@@ -28,13 +28,13 @@
   var map = document.querySelector('.map');
   var pinMain = document.querySelector('.map__pin--main');
 
-  var changeType = function () {
+  var onChangeTypeChange = function () {
     var minValuePrice = MinPrice[typeContainer.value];
 
     priceContainer.setAttribute('min', minValuePrice);
     priceContainer.setAttribute('placeholder', minValuePrice);
   };
-  typeContainer.addEventListener('change', changeType);
+  typeContainer.addEventListener('change', onChangeTypeChange);
 
   timeInContainer.addEventListener('change', function () {
     timeOutContainer.value = timeInContainer.value;
@@ -44,7 +44,7 @@
     timeInContainer.value = timeOutContainer.value;
   });
 
-  var validateGuests = function () {
+  var onValidateGuestsChange = function () {
     var capacityArray = ROOM_NUMBER_AND_CAPACITY[roomNumberContainer.value];
 
     roomNumberContainer.setCustomValidity('');
@@ -53,8 +53,8 @@
       roomNumberContainer.setCustomValidity('Количество комнат не подходит для количества гостей');
     }
   };
-  roomNumberContainer.addEventListener('change', validateGuests);
-  capacityContainer.addEventListener('change', validateGuests);
+  roomNumberContainer.addEventListener('change', onValidateGuestsChange);
+  capacityContainer.addEventListener('change', onValidateGuestsChange);
 
   error.addEventListener('click', function () {
     error.style.display = 'none';
@@ -66,7 +66,7 @@
     document.body.insertAdjacentElement('afterbegin', error);
   };
 
-  var resetForm = function () {
+  var onResetFormClick = function () {
     var mapMarks = map.querySelectorAll('.map__pin:not(:last-of-type)');
 
     adForm.reset();
@@ -85,13 +85,13 @@
   var clearBtn = document.querySelector('.ad-form__reset');
   clearBtn.addEventListener('click', function (evt) {
     evt.preventDefault();
-    resetForm();
+    onResetFormClick();
   });
 
   var successElement = document.querySelector('.success');
 
   var onSuccess = function () {
-    resetForm();
+    onResetFormClick();
     successElement.classList.remove('hidden');
     document.addEventListener('keydown', onSuccessEscPress);
   };

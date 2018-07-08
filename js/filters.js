@@ -48,17 +48,17 @@
     return true;
   };
 
-  var filter = function () {
+  var onFilterChange = function () {
     window.debounce(function () {
       var marks = window.marks.filter(checkType).filter(checkPrice).filter(checkRooms).filter(checkGuests).filter(checkFeatures);
       window.pin.renderMarksAll(marks);
     });
   };
 
-  filterType.addEventListener('change', filter);
-  filterPrice.addEventListener('change', filter);
-  filterRooms.addEventListener('change', filter);
-  filterGuests.addEventListener('change', filter);
-  filterFeatures.addEventListener('change', filter);
+  filterType.addEventListener('change', onFilterChange);
+  filterPrice.addEventListener('change', onFilterChange);
+  filterRooms.addEventListener('change', onFilterChange);
+  filterGuests.addEventListener('change', onFilterChange);
+  filterFeatures.addEventListener('change', onFilterChange);
 
 })();

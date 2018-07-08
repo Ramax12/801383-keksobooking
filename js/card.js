@@ -39,20 +39,19 @@
   };
 
   var closeCard = function () {
-    var popup = map.querySelector('.map__card');
-    map.removeChild(popup);
+    map.removeChild(cardElement);
     document.removeEventListener('keydown', onPopupEscPress);
   };
 
   var existenceCard = function () {
-    var mapCard = map.querySelector('.map__card');
-    if (mapCard) {
+    if (cardElement) {
       closeCard();
     }
   };
 
+  var cardElement = null;
   var renderCard = function (mark) {
-    var cardElement = similarCardTemplate.cloneNode(true);
+    cardElement = similarCardTemplate.cloneNode(true);
 
     cardElement.querySelector('.popup__title').textContent = mark.offer.title;
     cardElement.querySelector('.popup__text--address').textContent = mark.offer.address;
