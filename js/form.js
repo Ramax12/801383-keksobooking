@@ -74,12 +74,12 @@
     adForm.classList.add('ad-form--disabled');
     pinMain.style.left = DEFAULT_MAP_PIN_X + 'px';
     pinMain.style.top = DEFAULT_MAP_PIN_Y + 'px';
-    window.map.disablePage();
+    window.map.inactiveState();
     window.card.existenceCard();
     for (var i = 0; i < mapMarks.length; i++) {
       mapMarks[i].parentNode.removeChild(mapMarks[i]);
     }
-    window.map.enablePage();
+    window.map.enableMap();
   };
 
   var clearBtn = document.querySelector('.ad-form__reset');

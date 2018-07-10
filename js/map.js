@@ -22,16 +22,16 @@
   };
 
   // Неактивное состояние
-  var disablePage = function () {
+  var inactiveState = function () {
     for (var i = 0; i < inactiveFields.length; i++) {
       inactiveFields[i].setAttribute('disabled', 'disabled');
     }
     mapPinAddress.value = calculateAddress();
   };
-  disablePage();
+  inactiveState();
 
   // Активное состояние
-  var enablePage = function () {
+  var enableMap = function () {
     var isMapActive;
     pinMain.addEventListener('click', isMapActive = function () {
       window.backend.load(function (marks) {
@@ -47,12 +47,12 @@
       pinMain.removeEventListener('click', isMapActive);
     });
   };
-  enablePage();
+  enableMap();
 
   window.map = {
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
     calculateAddress: calculateAddress,
-    disablePage: disablePage,
-    enablePage: enablePage,
+    inactiveState: inactiveState,
+    enableMap: enableMap,
   };
 })();
