@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var PriceValue = {
+    low: 10000,
+    high: 50000
+  };
 
   var filterForm = document.querySelector('.map__filters');
   var filterType = filterForm.querySelector('#housing-type');
@@ -14,20 +18,16 @@
   };
 
   var checkPrice = function (advert) {
-    switch (filterPrice.value) {
-
-      case 'low':
-        return advert.offer.price < 10000;
-
-      case 'middle':
-        return advert.offer.price > 10000 && advert.offer.price < 50000;
-
-      case 'high':
-        return advert.offer.price > 50000;
-
-      default:
-        return true;
+    if (filterPrice.value === 'low') {
+      return advert.offer.price < PriceValue.low;
     }
+    if (filterPrice.value === 'middle') {
+      return advert.offer.price > PriceValue.low && advert.offer.price < PriceValue.high;
+    }
+    if (filterPrice.value === 'high') {
+      return advert.offer.price > PriceValue.high;
+    }
+    return true;
   };
 
   var checkRooms = function (advert) {
@@ -41,24 +41,24 @@
   var checkFeatures = function (advert) {
     var checkedElements = filterFeatures.querySelectorAll('input[type=checkbox]:checked');
     for (var i = 0; i < checkedElements.length; i++) {
-      if (checkedElements[i].checked && advert.offer.features.indexOf(checkedElements[i].value) === -1) {
+      if (checkedElements[i] && advert.offer.features.indexOf(checkedElements[i].value) === -1) {
         return false;
       }
     }
     return true;
   };
 
-  var filter = function () {
+  var onFilterChange = function () {
     window.debounce(function () {
       var marks = window.marks.filter(checkType).filter(checkPrice).filter(checkRooms).filter(checkGuests).filter(checkFeatures);
       window.pin.renderMarksAll(marks);
     });
   };
 
-  filterType.addEventListener('change', filter);
-  filterPrice.addEventListener('change', filter);
-  filterRooms.addEventListener('change', filter);
-  filterGuests.addEventListener('change', filter);
-  filterFeatures.addEventListener('change', filter);
+  filterType.addEventListener('change', onFilterChange);
+  filterPrice.addEventListener('change', onFilterChange);
+  filterRooms.addEventListener('change', onFilterChange);
+  filterGuests.addEventListener('change', onFilterChange);
+  filterFeatures.addEventListener('change', onFilterChange);
 
 })();
