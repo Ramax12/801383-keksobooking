@@ -33,7 +33,7 @@
 
   window.backend = {
     load: function (onLoad, onError) {
-      xhrListener(onLoad, onError, 'GET', 'http://127.0.0.1:8000/booking.json', null);
+      xhrListener(onLoad, onError, 'GET', 'https://js.dump.academy/keksobooking/data', null);
     },
     save: function (data, onLoad, onError) {
       xhrListener(onLoad, onError, 'POST', 'https://js.dump.academy/keksobooking', data);
