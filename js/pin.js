@@ -59,7 +59,7 @@
     }
   };
 
-  var facetBlock = function () {
+  var fixPinPosition = function () {
     if (pinMain.offsetTop > MAX_PIN_BOTTOM - window.map.MAP_PIN_HEIGHT) {
       pinMain.style.top = (MAX_PIN_BOTTOM - window.map.MAP_PIN_HEIGHT) + 'px';
     } else if (pinMain.offsetTop < MIN_PIN_TOP - window.map.MAP_PIN_HEIGHT) {
@@ -97,7 +97,7 @@
       pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
       pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
 
-      facetBlock();
+      fixPinPosition();
     };
 
     var onMouseUp = function (upEvt) {

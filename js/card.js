@@ -40,11 +40,10 @@
   };
 
   var closeCard = function () {
-    map.removeChild(cardElement);
     if (cardElement) {
       map.removeChild(cardElement);
+      document.removeEventListener('keydown', onPopupEscPress);
     }
-    document.removeEventListener('keydown', onPopupEscPress);
   };
 
   var cardElement = null;
@@ -65,9 +64,7 @@
     document.addEventListener('keydown', onPopupEscPress);
     var popupClose = cardElement.querySelector('.popup__close');
 
-    popupClose.addEventListener('click', function () {
-      closeCard();
-    });
+    popupClose.addEventListener('click', closeCard);
     closeCard();
     return cardElement;
   };
