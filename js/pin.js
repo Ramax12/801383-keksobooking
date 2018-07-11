@@ -37,9 +37,9 @@
 
   var renderMarksAll = function (marks) {
     var mapMarks = map.querySelectorAll('.map__pin:not(:last-of-type)');
-    for (var i = 0; i < mapMarks.length; i++) {
-      mapMarks[i].remove();
-    }
+    mapMarks.forEach(function (mark) {
+      mark.remove();
+    });
     var fragment = document.createDocumentFragment();
     marks.slice(0, LIMIT_MARKS).forEach(function (mark) {
       fragment.appendChild(renderMark(mark));

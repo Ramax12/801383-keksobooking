@@ -2,8 +2,6 @@
 
 (function () {
   var ESC_KEYCODE = 27;
-  var DEFAULT_MAP_PIN_X = 570;
-  var DEFAULT_MAP_PIN_Y = 375;
   var ROOM_NUMBER_AND_CAPACITY = {
     '1': ['1'],
     '2': ['1', '2'],
@@ -26,8 +24,27 @@
   var adForm = document.querySelector('.ad-form');
   var error = document.querySelector('.error');
   var map = document.querySelector('.map');
+  var mapPins = document.querySelector('.map__pins');
   var pinMain = document.querySelector('.map__pin--main');
   var adFormSubmit = document.querySelector('.ad-form__submit');
+  var inactiveFields = document.querySelectorAll('fieldset');
+
+  var enable = function() {
+    inactiveFields.forEach(function(field) {
+      field.removeAttribute('disabled', 'disabled');
+    });
+    adForm.classList.remove('ad-form--disabled');
+  };
+
+  var disable = function () {
+    inactiveFields.forEach(function(field) {
+      field.setAttribute('disabled', 'disabled');
+    });
+    adForm.classList.add('ad-form--disabled');
+    adForm.classList.remove('ad-form__submit--wrong-field');
+    adForm.reset();
+  };
+  disable();
 
   var onChangeTypeChange = function () {
     var minValuePrice = MinPrice[typeContainer.value];
@@ -69,19 +86,13 @@
 
   var onResetFormClick = function () {
     var mapMarks = map.querySelectorAll('.map__pin:not(:last-of-type)');
+    mapMarks.forEach(function (mark) {
+      markPins.removeChild(mark);
+    });
 
-    adForm.reset();
-    map.classList.add('map--faded');
-    adForm.classList.add('ad-form--disabled');
-    adForm.classList.remove('ad-form__submit--wrong-field');
-    pinMain.style.left = DEFAULT_MAP_PIN_X + 'px';
-    pinMain.style.top = DEFAULT_MAP_PIN_Y + 'px';
-    window.map.inactiveState();
-    window.card.closeCard();
-    for (var i = 0; i < mapMarks.length; i++) {
-      mapMarks[i].parentNode.removeChild(mapMarks[i]);
-    }
-    window.map.enableMap();
+    disable();
+    window.card.close();
+    window.map.setInactive();
   };
 
   var clearBtn = document.querySelector('.ad-form__reset');
@@ -121,6 +132,7 @@
   });
 
   window.form = {
-    onError: onError
+    onError: onError,
+    disable: disable
   };
 })();

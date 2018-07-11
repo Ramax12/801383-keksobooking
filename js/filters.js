@@ -22,7 +22,7 @@
       return advert.offer.price < PriceValue.low;
     }
     if (filterPrice.value === 'middle') {
-      return advert.offer.price > PriceValue.low && advert.offer.price < PriceValue.high;
+      return advert.offer.price >= PriceValue.low && advert.offer.price <= PriceValue.high;
     }
     if (filterPrice.value === 'high') {
       return advert.offer.price > PriceValue.high;

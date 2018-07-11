@@ -5,11 +5,11 @@
   var TAIL_HEIGHT = 22;
   var MAP_PIN_WIDTH = 64;
   var MAP_PIN_HEIGHT = MAP_PIN_ICON_HEIGHT + TAIL_HEIGHT;
+  var DEFAULT_MAP_PIN_X = 570;
+  var DEFAULT_MAP_PIN_Y = 375;
 
   var map = document.querySelector('.map');
   var pinMain = document.querySelector('.map__pin--main');
-  var inactiveFields = document.querySelectorAll('fieldset');
-  var adForm = document.querySelector('.ad-form');
   var mapPinAddress = document.querySelector('#address');
 
   // Определение координат метки
@@ -22,38 +22,29 @@
     return pinMainX + ', ' + pinMainY;
   };
 
-  // Неактивное состояние
-  var inactiveState = function () {
-    for (var i = 0; i < inactiveFields.length; i++) {
-      inactiveFields[i].setAttribute('disabled', 'disabled');
-    }
-    mapPinAddress.value = calculateAddress();
-  };
-  inactiveState();
+  mapPinAddress.value = calculateAddress();
 
-  // Активное состояние
-  var enableMap = function () {
-    var isMapActive;
-    pinMain.addEventListener('click', isMapActive = function () {
-      window.backend.load(function (marks) {
-        window.marks = marks;
-        window.pin.renderMarksAll(marks);
-      }, window.form.onError);
-      map.classList.remove('map--faded');
-      adForm.classList.remove('ad-form--disabled');
-      mapPinAddress.value = calculateAddress();
-      for (var i = 0; i < inactiveFields.length; i++) {
-        inactiveFields[i].removeAttribute('disabled', 'disabled');
-      }
-      pinMain.removeEventListener('click', isMapActive);
-    });
+  var setInactive = function () {
+    map.classList.add('map--faded');
+    pinMain.style.left = DEFAULT_MAP_PIN_X + 'px';
+    pinMain.style.top = DEFAULT_MAP_PIN_Y + 'px';
+    pinMain.addEventListener('click', onPinMainClick);
   };
-  enableMap();
+  setInactive();
+
+  var onPinMainClick = function() {
+    window.backend.load(function (marks) {
+      window.marks = marks;
+      window.pin.renderMarksAll(marks);
+    }, window.form.onError);
+    map.classList.remove('map--faded');
+    mapPinAddress.value = calculateAddress();
+    pinMain.removeEventListener('click', onPinMainClick);
+  };
 
   window.map = {
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
     calculateAddress: calculateAddress,
-    inactiveState: inactiveState,
-    enableMap: enableMap,
+    setInactive: setInactive,
   };
 })();
