@@ -1,9 +1,10 @@
 'use strict';
 
 (function () {
-  var MAP_PIN_WIDTH = 64;
-  var MAP_PIN_HEIGHT = 64;
+  var MAP_PIN_ICON_HEIGHT = 64;
   var TAIL_HEIGHT = 22;
+  var MAP_PIN_WIDTH = 64;
+  var MAP_PIN_HEIGHT = MAP_PIN_ICON_HEIGHT + TAIL_HEIGHT;
 
   var map = document.querySelector('.map');
   var pinMain = document.querySelector('.map__pin--main');
@@ -14,9 +15,9 @@
   // Определение координат метки
   var calculateAddress = function () {
     var pinMainX = parseInt(pinMain.style.left, 10) + MAP_PIN_WIDTH / 2;
-    var pinMainY = parseInt(pinMain.style.top, 10) + MAP_PIN_HEIGHT / 2;
+    var pinMainY = parseInt(pinMain.style.top, 10) + MAP_PIN_ICON_HEIGHT / 2;
     if (!(map.classList.contains('map--faded'))) {
-      pinMainY += MAP_PIN_HEIGHT / 2 + TAIL_HEIGHT;
+      pinMainY += MAP_PIN_ICON_HEIGHT / 2 + TAIL_HEIGHT;
     }
     return pinMainX + ', ' + pinMainY;
   };

@@ -60,10 +60,10 @@
   };
 
   var facetBlock = function () {
-    if (pinMain.offsetTop > MAX_PIN_BOTTOM) {
-      pinMain.style.top = MAX_PIN_BOTTOM + 'px';
-    } else if (pinMain.offsetTop < MIN_PIN_TOP) {
-      pinMain.style.top = MIN_PIN_TOP + 'px';
+    if (pinMain.offsetTop > MAX_PIN_BOTTOM - window.map.MAP_PIN_HEIGHT) {
+      pinMain.style.top = (MAX_PIN_BOTTOM - window.map.MAP_PIN_HEIGHT) + 'px';
+    } else if (pinMain.offsetTop < MIN_PIN_TOP - window.map.MAP_PIN_HEIGHT) {
+      pinMain.style.top = (MIN_PIN_TOP - window.map.MAP_PIN_HEIGHT) + 'px';
     }
 
     if (pinMain.offsetLeft > MAX_PIN_RIGHT) {

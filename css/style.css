@@ -525,6 +525,11 @@ fieldset {
   opacity: 0.3;
 }
 
+.ad-form input:invalid {
+  -webkit-box-shadow: 0 0 2px 2px red;
+          box-shadow: 0 0 2px 2px red;
+}
+
 .ad-form-header {
   width: 100%;
   padding-bottom: 20px;
