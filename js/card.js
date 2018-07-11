@@ -42,7 +42,7 @@
   var closeCard = function () {
     map.removeChild(cardElement);
     if (cardElement) {
-      closeCard();
+      map.removeChild(cardElement);
     }
     document.removeEventListener('keydown', onPopupEscPress);
   };
