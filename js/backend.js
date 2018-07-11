@@ -4,7 +4,7 @@
   var LOAD_TIMEOUT = 5000;
   var LOAD_SUCCESS = 200;
 
-  var xhrListener = function (onLoad, onError, method, url, data) {
+  var xhrRequest = function (onLoad, onError, method, url, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.timeout = LOAD_TIMEOUT;
@@ -33,10 +33,10 @@
 
   window.backend = {
     load: function (onLoad, onError) {
-      xhrListener(onLoad, onError, 'GET', 'https://js.dump.academy/keksobooking/data', null);
+      xhrRequest(onLoad, onError, 'GET', 'https://js.dump.academy/keksobooking/data', null);
     },
     save: function (data, onLoad, onError) {
-      xhrListener(onLoad, onError, 'POST', 'https://js.dump.academy/keksobooking', data);
+      xhrRequest(onLoad, onError, 'POST', 'https://js.dump.academy/keksobooking', data);
     }
   };
 })();
