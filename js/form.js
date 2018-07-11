@@ -4,17 +4,17 @@
   var ESC_KEYCODE = 27;
   var DEFAULT_MAP_PIN_X = 570;
   var DEFAULT_MAP_PIN_Y = 375;
-  var MinPrice = {
-    bungalo: 0,
-    flat: 1000,
-    house: 5000,
-    palace: 10000
-  };
   var ROOM_NUMBER_AND_CAPACITY = {
     '1': ['1'],
     '2': ['1', '2'],
     '3': ['1', '2', '3'],
     '100': ['0']
+  };
+  var MinPrice = {
+    bungalo: 0,
+    flat: 1000,
+    house: 5000,
+    palace: 10000
   };
 
   var priceContainer = document.querySelector('#price');
@@ -73,6 +73,7 @@
     adForm.reset();
     map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
+    adForm.classList.remove('ad-form__submit--wrong-field');
     pinMain.style.left = DEFAULT_MAP_PIN_X + 'px';
     pinMain.style.top = DEFAULT_MAP_PIN_Y + 'px';
     window.map.inactiveState();
