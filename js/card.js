@@ -41,13 +41,10 @@
 
   var closeCard = function () {
     map.removeChild(cardElement);
-    document.removeEventListener('keydown', onPopupEscPress);
-  };
-
-  var existenceCard = function () {
     if (cardElement) {
       closeCard();
     }
+    document.removeEventListener('keydown', onPopupEscPress);
   };
 
   var cardElement = null;
@@ -71,12 +68,11 @@
     popupClose.addEventListener('click', function () {
       closeCard();
     });
-    existenceCard();
-
+    closeCard();
     return cardElement;
   };
   window.card = {
     renderCard: renderCard,
-    existenceCard: existenceCard
+    closeCard: closeCard
   };
 })();
