@@ -27,6 +27,7 @@
   var error = document.querySelector('.error');
   var map = document.querySelector('.map');
   var pinMain = document.querySelector('.map__pin--main');
+  var adFormSubmit = document.querySelector('.ad-form__submit');
 
   var onChangeTypeChange = function () {
     var minValuePrice = MinPrice[typeContainer.value];
@@ -112,6 +113,10 @@
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(adForm), onSuccess, onError);
+  });
+
+  adFormSubmit.addEventListener('click', function () {
+    adForm.classList.add('ad-form__submit--wrong-field');
   });
 
   window.form = {
