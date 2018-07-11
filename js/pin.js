@@ -15,7 +15,7 @@
       .content
       .querySelector('.map__pin');
 
-  var mapFiltersContainer = document.querySelector('.map__filters-container');
+
   var pinMain = document.querySelector('.map__pin--main');
   var mapPinAddress = document.querySelector('#address');
   var markActive;
@@ -28,7 +28,7 @@
     markElement.querySelector('.map__pin img').src = mark.author.avatar;
     markElement.querySelector('.map__pin img').alt = mark.offer.title;
     markElement.addEventListener('click', function () {
-      mapFiltersContainer.parentNode.insertBefore(window.card.renderCard(mark), mapFiltersContainer);
+      window.card.render(mark);
       activeMark(markElement);
     });
 

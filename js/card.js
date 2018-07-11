@@ -35,19 +35,23 @@
 
   var onPopupEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
-      closeCard();
+      close();
     }
   };
 
-  var closeCard = function () {
+  var close = function () {
     if (cardElement) {
       map.removeChild(cardElement);
+      cardElement = null;
       document.removeEventListener('keydown', onPopupEscPress);
     }
   };
 
+  var mapFiltersContainer = document.querySelector('.map__filters-container');
+
   var cardElement = null;
-  var renderCard = function (mark) {
+  var render = function (mark) {
+    close();
     cardElement = similarCardTemplate.cloneNode(true);
 
     cardElement.querySelector('.popup__title').textContent = mark.offer.title;
@@ -64,12 +68,11 @@
     document.addEventListener('keydown', onPopupEscPress);
     var popupClose = cardElement.querySelector('.popup__close');
 
-    popupClose.addEventListener('click', closeCard);
-    closeCard();
-    return cardElement;
+    popupClose.addEventListener('click', close);
+    mapFiltersContainer.parentNode.insertBefore(cardElement, mapFiltersContainer);
   };
   window.card = {
-    renderCard: renderCard,
-    closeCard: closeCard
+    render: render,
+    close: close
   };
 })();

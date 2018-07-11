@@ -95,18 +95,18 @@
   var onSuccess = function () {
     onResetFormClick();
     successElement.classList.remove('hidden');
+    document.addEventListener('click', onSuccessClick);
     document.addEventListener('keydown', onSuccessEscPress);
   };
 
-  var closeSuccess = function () {
-    document.addEventListener('click', function () {
-      successElement.classList.add('hidden');
-    });
+  var onSuccessClick = function () {
+    successElement.classList.add('hidden');
+    document.removeEventListener('click', onSuccessClick);
   };
 
   var onSuccessEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
-      closeSuccess();
+      successElement.classList.add('hidden');
       document.removeEventListener('keydown', onSuccessEscPress);
     }
   };
