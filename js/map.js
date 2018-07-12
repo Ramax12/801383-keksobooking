@@ -39,6 +39,7 @@
     }, window.form.onError);
     map.classList.remove('map--faded');
     mapPinAddress.value = calculateAddress();
+    window.form.enable();
     pinMain.removeEventListener('click', onPinMainClick);
   };
 

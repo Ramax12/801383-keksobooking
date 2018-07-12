@@ -25,19 +25,18 @@
   var error = document.querySelector('.error');
   var map = document.querySelector('.map');
   var mapPins = document.querySelector('.map__pins');
-  var pinMain = document.querySelector('.map__pin--main');
   var adFormSubmit = document.querySelector('.ad-form__submit');
   var inactiveFields = document.querySelectorAll('fieldset');
 
-  var enable = function() {
-    inactiveFields.forEach(function(field) {
+  var enable = function () {
+    inactiveFields.forEach(function (field) {
       field.removeAttribute('disabled', 'disabled');
     });
     adForm.classList.remove('ad-form--disabled');
   };
 
   var disable = function () {
-    inactiveFields.forEach(function(field) {
+    inactiveFields.forEach(function (field) {
       field.setAttribute('disabled', 'disabled');
     });
     adForm.classList.add('ad-form--disabled');
@@ -85,12 +84,8 @@
   };
 
   var onResetFormClick = function () {
-    var mapMarks = map.querySelectorAll('.map__pin:not(:last-of-type)');
-    mapMarks.forEach(function (mark) {
-      markPins.removeChild(mark);
-    });
-
     disable();
+    window.pin.removeAllMarks();
     window.card.close();
     window.map.setInactive();
   };
@@ -133,6 +128,7 @@
 
   window.form = {
     onError: onError,
-    disable: disable
+    disable: disable,
+    enable: enable
   };
 })();

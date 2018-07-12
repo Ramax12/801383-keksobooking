@@ -35,7 +35,7 @@
     return markElement;
   };
 
-  var renderMarksAll = function (marks) {
+  var renderAllMarks = function (marks) {
     var mapMarks = map.querySelectorAll('.map__pin:not(:last-of-type)');
     mapMarks.forEach(function (mark) {
       mark.remove();
@@ -45,6 +45,13 @@
       fragment.appendChild(renderMark(mark));
     });
     return similarMarkElement.insertBefore(fragment, pinMain);
+  };
+
+  var removeAllMarks = function() {
+    var mapMarks = map.querySelectorAll('.map__pin:not(:last-of-type)');
+    mapMarks.forEach(function (mark) {
+      markPins.removeChild(mark);
+    });
   };
 
   var activeMark = function (element) {
@@ -114,6 +121,7 @@
   });
 
   window.pin = {
-    renderMarksAll: renderMarksAll
+    renderAllMarks: renderAllMarks,
+    removeAllMarks: removeAllMarks
   };
 })();
