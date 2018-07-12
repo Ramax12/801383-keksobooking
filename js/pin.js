@@ -36,10 +36,7 @@
   };
 
   var renderAllMarks = function (marks) {
-    var mapMarks = map.querySelectorAll('.map__pin:not(:last-of-type)');
-    mapMarks.forEach(function (mark) {
-      mark.remove();
-    });
+    removeAllMarks();
     var fragment = document.createDocumentFragment();
     marks.slice(0, LIMIT_MARKS).forEach(function (mark) {
       fragment.appendChild(renderMark(mark));
@@ -47,10 +44,10 @@
     return similarMarkElement.insertBefore(fragment, pinMain);
   };
 
-  var removeAllMarks = function() {
+  var removeAllMarks = function () {
     var mapMarks = map.querySelectorAll('.map__pin:not(:last-of-type)');
     mapMarks.forEach(function (mark) {
-      markPins.removeChild(mark);
+      mark.remove();
     });
   };
 
@@ -122,6 +119,7 @@
 
   window.pin = {
     renderAllMarks: renderAllMarks,
-    removeAllMarks: removeAllMarks
+    removeAllMarks: removeAllMarks,
+    activeMarkHide: activeMarkHide
   };
 })();

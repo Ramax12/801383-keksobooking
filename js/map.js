@@ -30,18 +30,19 @@
     pinMain.style.top = DEFAULT_MAP_PIN_Y + 'px';
     pinMain.addEventListener('click', onPinMainClick);
   };
-  setInactive();
 
-  var onPinMainClick = function() {
+  var onPinMainClick = function () {
     window.backend.load(function (marks) {
       window.marks = marks;
-      window.pin.renderMarksAll(marks);
+      window.pin.renderAllMarks(marks);
     }, window.form.onError);
     map.classList.remove('map--faded');
     mapPinAddress.value = calculateAddress();
     window.form.enable();
     pinMain.removeEventListener('click', onPinMainClick);
   };
+
+  setInactive();
 
   window.map = {
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,

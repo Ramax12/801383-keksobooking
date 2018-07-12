@@ -44,6 +44,7 @@
       map.removeChild(cardElement);
       cardElement = null;
       document.removeEventListener('keydown', onPopupEscPress);
+      window.pin.activeMarkHide();
     }
   };
 

@@ -51,7 +51,8 @@
   var onFilterChange = function () {
     window.debounce(function () {
       var marks = window.marks.filter(checkType).filter(checkPrice).filter(checkRooms).filter(checkGuests).filter(checkFeatures);
-      window.pin.renderMarksAll(marks);
+      window.card.close();
+      window.pin.renderAllMarks(marks);
     });
   };
 

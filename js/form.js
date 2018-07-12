@@ -2,7 +2,8 @@
 
 (function () {
   var ESC_KEYCODE = 27;
-  var ROOM_NUMBER_AND_CAPACITY = {
+
+  var RoomNumberAndCapacity = {
     '1': ['1'],
     '2': ['1', '2'],
     '3': ['1', '2', '3'],
@@ -23,8 +24,6 @@
   var capacityContainer = document.querySelector('#capacity');
   var adForm = document.querySelector('.ad-form');
   var error = document.querySelector('.error');
-  var map = document.querySelector('.map');
-  var mapPins = document.querySelector('.map__pins');
   var adFormSubmit = document.querySelector('.ad-form__submit');
   var inactiveFields = document.querySelectorAll('fieldset');
 
@@ -62,16 +61,15 @@
   });
 
   var onValidateGuestsChange = function () {
-    var capacityArray = ROOM_NUMBER_AND_CAPACITY[roomNumberContainer.value];
+    var valueRoom = roomNumberContainer.value;
+    var capacityArray = RoomNumberAndCapacity[valueRoom];
 
-    roomNumberContainer.setCustomValidity('');
-    roomNumberContainer.checkValidity();
-    if (capacityArray.indexOf(capacityContainer.value) < 0) {
-      roomNumberContainer.setCustomValidity('Количество комнат не подходит для количества гостей');
+    for (var i = 0; i < capacityContainer.options.length; i++) {
+      capacityContainer.options[i].disabled = (!capacityArray.includes(capacityContainer.options[i].value));
     }
+    capacityContainer.value = capacityArray.includes(valueRoom) ? valueRoom : RoomNumberAndCapacity[valueRoom];
   };
   roomNumberContainer.addEventListener('change', onValidateGuestsChange);
-  capacityContainer.addEventListener('change', onValidateGuestsChange);
 
   error.addEventListener('click', function () {
     error.style.display = 'none';
@@ -88,6 +86,7 @@
     window.pin.removeAllMarks();
     window.card.close();
     window.map.setInactive();
+    onChangeTypeChange();
   };
 
   var clearBtn = document.querySelector('.ad-form__reset');
