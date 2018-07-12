@@ -22,12 +22,11 @@
     return pinMainX + ', ' + pinMainY;
   };
 
-  mapPinAddress.value = calculateAddress();
-
   var setInactive = function () {
     map.classList.add('map--faded');
     pinMain.style.left = DEFAULT_MAP_PIN_X + 'px';
     pinMain.style.top = DEFAULT_MAP_PIN_Y + 'px';
+    mapPinAddress.value = calculateAddress();
     pinMain.addEventListener('click', onPinMainClick);
   };
 
